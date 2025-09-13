@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import api from '../../api/axios';
 import { toast } from 'react-toastify';
-import { getImageUrl } from '../../utils/getImageUrl';
+import { getImageUrl } from '../../utils/getImageUrl.js';
 import Pagination from '../components/Pagination.jsx';
 
 export default function AdminProductos() {
@@ -260,55 +260,64 @@ export default function AdminProductos() {
             </tr>
           </thead>
           <tbody className='divide-y divide-gray-200 text-xs'>
-            {productos.map((prod) => (
-              <tr key={prod.id}>
-                <td className='px-0.5 py-1'>{prod.id}</td>
-                <td className='px-0.5 py-1 max-w-[80px] truncate overflow-hidden'>
-                  {prod.nombre}
-                </td>
-                <td className='px-0.5 py-1 max-w-[180px] truncate overflow-hidden'>
-                  {prod.descripcion}
-                </td>
-                <td className='px-0.5 py-1'>${prod.precio.toFixed(2)}</td>
-                <td className='px-0.5 py-1'>
-                  {prod.imagen && (
-                    <img
-                      src={getImageUrl(prod.imagen)}
-                      alt={prod.nombre}
-                      className='w-12 h-12 object-cover rounded'
-                    />
-                  )}
-                </td>
-                <td className='px-0.5 py-1'>{prod.oferta ? 'Sí' : 'No'}</td>
-                <td className='px-0.5 py-1'>{prod.descuento}%</td>
-                <td className='px-0.5 py-1'>
-                  {prod.esPersonalizable ? 'Sí' : 'No'}
-                </td>
-                <td className='px-0.5 py-1'>
-                  {prod.activo ? 'Activo' : 'Inactivo'}
-                </td>
-                <td className='px-0.5 py-1'>
-                  {prod.Categorium?.nombre || 'N/A'}
-                </td>
-                <td className='px-0.5 py-1 text-center'>
-                  <button
-                    onClick={() => openForm('ver', prod)}
-                    className='px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 text-xs mr-1'>
-                    👁
-                  </button>
-                  <button
-                    onClick={() => openForm('editar', prod)}
-                    className='px-2 py-1 bg-blue-200 rounded hover:bg-blue-300 text-xs mr-1'>
-                    ✏
-                  </button>
-                  <button
-                    onClick={() => openConfirm(prod, 'eliminar')}
-                    className='px-2 py-1 bg-red-200 rounded hover:bg-red-300 text-xs mr-1'>
-                    🗑
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {productos.map((prod) => {
+              console.log(
+                'Imagen DB:',
+                prod.imagen,
+                'URL final:',
+                getImageUrl(prod.imagen)
+              );
+
+              return (
+                <tr key={prod.id}>
+                  <td className='px-0.5 py-1'>{prod.id}</td>
+                  <td className='px-0.5 py-1 max-w-[80px] truncate overflow-hidden'>
+                    {prod.nombre}
+                  </td>
+                  <td className='px-0.5 py-1 max-w-[180px] truncate overflow-hidden'>
+                    {prod.descripcion}
+                  </td>
+                  <td className='px-0.5 py-1'>${prod.precio.toFixed(2)}</td>
+                  <td className='px-0.5 py-1'>
+                    {prod.imagen && (
+                      <img
+                        src={getImageUrl(prod.imagen)}
+                        alt={prod.nombre}
+                        className='w-12 h-12 object-cover rounded'
+                      />
+                    )}
+                  </td>
+                  <td className='px-0.5 py-1'>{prod.oferta ? 'Sí' : 'No'}</td>
+                  <td className='px-0.5 py-1'>{prod.descuento}%</td>
+                  <td className='px-0.5 py-1'>
+                    {prod.esPersonalizable ? 'Sí' : 'No'}
+                  </td>
+                  <td className='px-0.5 py-1'>
+                    {prod.activo ? 'Activo' : 'Inactivo'}
+                  </td>
+                  <td className='px-0.5 py-1'>
+                    {prod.Categorium?.nombre || 'N/A'}
+                  </td>
+                  <td className='px-0.5 py-1 text-center'>
+                    <button
+                      onClick={() => openForm('ver', prod)}
+                      className='px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 text-xs mr-1'>
+                      👁
+                    </button>
+                    <button
+                      onClick={() => openForm('editar', prod)}
+                      className='px-2 py-1 bg-blue-200 rounded hover:bg-blue-300 text-xs mr-1'>
+                      ✏
+                    </button>
+                    <button
+                      onClick={() => openConfirm(prod, 'eliminar')}
+                      className='px-2 py-1 bg-red-200 rounded hover:bg-red-300 text-xs mr-1'>
+                      🗑
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
