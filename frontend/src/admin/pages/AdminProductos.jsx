@@ -523,7 +523,7 @@ export default function AdminProductos() {
                 onClick={async () => {
                   if (confirmType === 'eliminar') {
                     try {
-                      await axios.delete(`/productos/${selectedProducto.id}`);
+                      await api.delete(`/productos/${selectedProducto.id}`);
                       fetchProductos();
                       setShowConfirm(false);
                       setSelectedProducto(null);
@@ -536,7 +536,7 @@ export default function AdminProductos() {
                     }
                   } else if (confirmType === 'editar') {
                     try {
-                      await axios.put(
+                      await api.put(
                         `/productos/${selectedProducto.id}`,
                         formData
                       );
