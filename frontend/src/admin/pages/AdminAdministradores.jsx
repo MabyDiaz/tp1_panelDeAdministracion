@@ -247,7 +247,7 @@ export default function AdminAdministradores() {
           </tbody>
         </table>
       </div>
-     
+
       <Pagination
         pagination={pagination}
         onPageChange={(page) => fetchAdmins(page)}
